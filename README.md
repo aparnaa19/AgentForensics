@@ -9,9 +9,8 @@
 
 AgentForensics is an open-source security framework that monitors LLM agent sessions in real time, detects prompt injection attacks across multiple sources, fingerprints attack campaigns, and presents forensic evidence in a dashboard - all with **zero changes to your existing agent code**.
 
-> **Note:** A research paper describing the detection methodology and evaluation is in preparation. If you use AgentForensics in your research, please see the [Citation](#citation) section.
 
-📖 **[Full User Guide](USERGUIDE.md)** — installation, all use cases, dashboard walkthrough, troubleshooting
+📖 **[Full User Guide](USERGUIDE.md)** - installation, all use cases, dashboard walkthrough, troubleshooting
 
 ---
 
@@ -55,34 +54,46 @@ python benchtest.py --ml   # reproduce results
 
 ## How It Works
 
-```
-External content (web page, email, document, tool result)
-         │
-         ▼
-┌─────────────────────────────────────────────────────┐
-│                Detection Pipeline                    │
-│                                                      │
-│  Stage 1 - Heuristics         < 1 ms                │
-│    8 regex rule groups (H01–H08)                     │
-│                                                      │
-│  Stage 2 - ML Classifier      ~50 ms                │
-│    Fine-tuned DistilBERT on injection patterns       │
-│                                                      │
-│  Stage 3 - Instruction Boundary  < 1 ms             │
-│    10 boundary pattern groups (IB01–IB10)            │
-│                                                      │
-│  Stage 4 - Semantic Drift     ~30 ms                │
-│    Compares LLM response topic vs original query     │
-│                                                      │
-│  Stage 5 - Sliding Window     < 1 ms                │
-│    Aggregates score across last N turns              │
-└─────────────────────────────────────────────────────┘
-         │
-         ▼
-  Verdict: CLEAN / SUSPICIOUS / COMPROMISED
-         │
-         ▼
-  Stored → Fingerprinted → Alerted → Dashboard
+```mermaid
+flowchart TD
+    A(["`**External Content**
+    web page · email · document · tool result`"]) --> B
+
+    B["**Stage 1 - Heuristics** &lt;1ms
+    8 regex rule groups · H01–H08"]
+
+    B --> C["**Stage 2 - ML Classifier** ~50ms
+    Fine-tuned DistilBERT on injection patterns"]
+
+    C --> D["**Stage 3 - Instruction Boundary** &lt;1ms
+    10 boundary pattern groups · IB01–IB10"]
+
+    D --> E["**Stage 4 - Semantic Drift** ~30ms
+    LLM response topic vs original query"]
+
+    E --> F["**Stage 5 - Sliding Window** &lt;1ms
+    Score aggregation across last N turns"]
+
+    F --> G{Verdict}
+
+    G -->|score < 0.25| H(["`**CLEAN**`"])
+    G -->|score 0.25–0.75| I(["`**SUSPICIOUS**`"])
+    G -->|score > 0.75| J(["`**COMPROMISED**`"])
+
+    I --> K[Store · Fingerprint · Alert · Dashboard]
+    J --> K
+
+    style A fill:#1e1e2e,stroke:#6c7086,color:#cdd6f4
+    style B fill:#1a3a1a,stroke:#40a02b,color:#cdd6f4
+    style C fill:#1a3a1a,stroke:#40a02b,color:#cdd6f4
+    style D fill:#1a3a1a,stroke:#40a02b,color:#cdd6f4
+    style E fill:#1a3a1a,stroke:#40a02b,color:#cdd6f4
+    style F fill:#1a3a1a,stroke:#40a02b,color:#cdd6f4
+    style G fill:#2a2a3e,stroke:#89b4fa,color:#cdd6f4
+    style H fill:#1a3a1a,stroke:#40a02b,color:#a6e3a1
+    style I fill:#3a2e00,stroke:#f9e2af,color:#f9e2af
+    style J fill:#3a1a1a,stroke:#f38ba8,color:#f38ba8
+    style K fill:#1e1e2e,stroke:#89b4fa,color:#89b4fa
 ```
 
 ### Detection Rules
@@ -129,7 +140,11 @@ python -m agentforensics.cli dashboard
 
 ## Usage
 
-### 1. Code Wrapper - OpenAI / Anthropic
+### 1. Claude Desktop (MCP)
+
+Run `python install.py` once. AgentForensics is auto-configured as an MCP server. Restart Claude Desktop - monitoring starts immediately, no code changes required.
+
+### 2. Code Wrapper - OpenAI / Anthropic
 
 Drop-in replacement. One import, no other changes:
 
@@ -145,10 +160,6 @@ response = client.chat.completions.create(
 )
 # Injection signals captured automatically → visible in dashboard
 ```
-
-### 2. Claude Desktop (MCP)
-
-Run `python install.py` once. AgentForensics is auto-configured as an MCP server. Restart Claude Desktop - monitoring starts immediately, no code changes required.
 
 ### 3. VS Code Extension
 
@@ -183,7 +194,7 @@ patch_autogen()
 
 ## Dashboard
 
-Launch with `python -m agentforensics.cli dashboard` or the desktop app, then open `http://localhost:7890`.
+Launch with the desktop app and click go to dashboard or `python -m agentforensics.cli dashboard`
 
 | View | Description |
 |------|-------------|
@@ -269,7 +280,6 @@ Contributions are welcome. Areas of particular interest:
 - Improved ML model training data
 - Additional benchmark evaluations
 
-Please open an issue before submitting a large PR.
 
 ---
 
@@ -279,10 +289,10 @@ If you use AgentForensics in your research, please cite:
 
 ```bibtex
 @software{agentforensics2026,
-  author    = {YOUR_NAME},
+  author    = Aparnaa,
   title     = {AgentForensics: Real-Time Prompt Injection Detection and Forensics for LLM Agents},
   year      = {2026},
-  url       = {https://github.com/YOUR_USERNAME/agentforensics},
+  url       = {https://github.com/aparnaa19/agentforensics},
   license   = {MIT}
 }
 ```
