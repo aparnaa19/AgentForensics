@@ -350,7 +350,7 @@ class TestAutoGenImportGuard:
         importlib.reload(at)
 
         agent = _FakeConversableAgent()
-        with pytest.raises(ImportError, match="pip install pyautogen"):
+        with pytest.raises(ImportError, match="pip install autogen"):
             at.patch_autogen(agent)
 
     def test_error_message_is_exact(self):
@@ -362,7 +362,7 @@ class TestAutoGenImportGuard:
         try:
             at.patch_autogen(_FakeConversableAgent())
         except ImportError as exc:
-            assert "pip install pyautogen" in str(exc)
+            assert "pip install autogen" in str(exc)
 
 
 # ---------------------------------------------------------------------------
