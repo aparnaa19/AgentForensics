@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentforensics"
+version = "0.1.0"
+description = "Real-time prompt injection detection and forensics for LLM agents"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+keywords = ["llm", "security", "prompt-injection", "ai-safety", "forensics"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Security",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+  "pydantic>=2.0",
+  "click>=8.0",
+  "transformers>=4.30",
+  "torch>=2.0",
+  "openai>=1.0",
+  "anthropic>=0.20",
+  "rich>=13.0",
+]
+
+[project.optional-dependencies]
+dashboard = ["fastapi>=0.100", "uvicorn>=0.23", "httpx>=0.24", "pywebview>=4.0"]
+mcp       = ["mcp>=1.0"]
+langchain = ["langchain>=0.1", "langchain-openai>=0.0.5"]
+autogen   = ["pyautogen>=0.2"]
+dev       = ["pytest>=7.0", "httpx>=0.24"]
+train     = ["datasets", "scikit-learn", "accelerate"]
+
+[project.scripts]
+agentforensics = "agentforensics.cli:cli"
+
+[tool.setuptools.packages.find]
+where   = ["."]
+include = ["agentforensics*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

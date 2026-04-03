@@ -1,0 +1,93 @@
+{
+  "name": "agentforensics",
+  "displayName": "AgentForensics",
+  "description": "Real-time prompt injection detection and forensics for LLM apps",
+  "version": "0.1.0",
+  "publisher": "agentforensics",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "agentforensics",
+          "title": "AgentForensics",
+          "icon": "$(shield)"
+        }
+      ]
+    },
+    "views": {
+      "agentforensics": [
+        {
+          "type": "webview",
+          "id": "agentforensics.sidebar",
+          "name": "Sessions"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "agentforensics.scanFile",
+        "title": "AgentForensics: Scan Current File",
+        "icon": "$(search)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "agentforensics.scanFile",
+          "group": "agentforensics"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "agentforensics.scanFile",
+          "group": "agentforensics"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AgentForensics",
+      "properties": {
+        "agentforensics.dashboardPort": {
+          "type": "number",
+          "default": 7890,
+          "description": "Port the agentforensics dashboard listens on"
+        },
+        "agentforensics.autoStart": {
+          "type": "boolean",
+          "default": false,
+          "description": "Auto-start proxy and dashboard when VS Code opens"
+        },
+        "agentforensics.scanOnOpen": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically scan files for prompt injection when they are opened in the editor"
+        },
+        "agentforensics.scanOnPaste": {
+          "type": "boolean",
+          "default": true,
+          "description": "Scan multi-line content when pasted or inserted by Copilot into the editor"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.37",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0"
+  }
+}

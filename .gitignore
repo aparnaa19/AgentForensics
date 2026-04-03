@@ -1,0 +1,50 @@
+# ── Secrets ───────────────────────────────────────────────────────────────────
+.env
+
+# ── Trace data (generated at runtime) ────────────────────────────────────────
+.af_traces/
+af_report_*.html
+af_report_*.json
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+*.pyo
+*.pyd
+
+# ── Build & distribution ──────────────────────────────────────────────────────
+dist/
+build/
+*.spec.bak
+
+# ── ML model weights (auto-downloaded via install.py / scripts/download_model.py) ──
+agentforensics/model/*.safetensors
+agentforensics/model/*.bin
+
+# ── Test & tooling caches ─────────────────────────────────────────────────────
+.pytest_cache/
+.pytest_tmp/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# ── Temporary pip/build artifacts ────────────────────────────────────────────
+.tmp/
+.tmp_wheels/
+
+# ── Node / VSCode extension ───────────────────────────────────────────────────
+node_modules/
+agentforensics-vscode/node_modules/
+agentforensics-vscode/out/
+*.vsix
+
+# ── OS artefacts ──────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Benchmark result caches (optional — remove if you want to commit results) ─
+# benchtest_results.json
+# benchmark_results.json
