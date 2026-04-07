@@ -1,0 +1,57 @@
+{
+  "timestamp": "2026-04-06T22:00:12.185196+00:00",
+  "dataset": "deepset/prompt-injections",
+  "ml_enabled": true,
+  "total_samples": 546,
+  "injections": 203,
+  "benign": 343,
+  "true_positives": 203,
+  "false_negatives": 0,
+  "false_positives": 0,
+  "true_negatives": 343,
+  "detection_rate": 1.0,
+  "fp_rate": 0.0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1_score": 1.0,
+  "top_rules": [
+    [
+      "IB07",
+      12
+    ],
+    [
+      "IB05",
+      10
+    ],
+    [
+      "H06",
+      10
+    ],
+    [
+      "H07",
+      8
+    ],
+    [
+      "IB02",
+      3
+    ],
+    [
+      "IB04",
+      1
+    ],
+    [
+      "H02",
+      1
+    ],
+    [
+      "H05",
+      1
+    ],
+    [
+      "H01",
+      1
+    ]
+  ],
+  "missed_examples": [],
+  "fp_examples": []
+}
