@@ -1,13 +1,14 @@
 {
-  "timestamp": "2026-04-03T17:17:22.638897+00:00",
+  "timestamp": "2026-04-11T20:22:16.084219+00:00",
   "dataset": "alexcbecker/ARPIbench",
   "ml_enabled": true,
-  "payloads_tested": 2000,
-  "detected": 2000,
+  "payloads_tested": 7560,
+  "detected": 7560,
   "missed": 0,
   "detection_rate": 1.0,
   "by_scenario": {
-    "web": 1.0
+    "web": 1.0,
+    "local_document": 1.0
   },
   "by_attack_type": {
     "naive": 1.0,
@@ -20,16 +21,20 @@
   },
   "top_rules": [
     [
+      "H04",
+      1512
+    ],
+    [
       "H01",
-      284
+      1080
     ],
     [
       "H06",
-      284
+      1080
     ],
     [
       "H08",
-      144
+      540
     ]
   ],
   "missed_examples": []

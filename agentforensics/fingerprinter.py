@@ -8,7 +8,7 @@ Embedding tiers (auto-detected at runtime)
 1. sentence-transformers all-MiniLM-L6-v2  - semantic (384-dim), opt-in
 2. Pure Python character bi+trigram hashing - no extra deps (256-dim)
 
-The AF_FP_THRESHOLD env var (default 0.82) controls the minimum cosine
+The AF_FP_THRESHOLD env var (default 0.70) controls the minimum cosine
 similarity required to consider two snippets the same campaign.
 
 The AF_FP_DB env var overrides the default DB path

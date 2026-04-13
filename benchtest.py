@@ -123,12 +123,14 @@ def main() -> None:
     missed_examples: list  = []
 
     sep = "─" * 65
+    total_rows = len(rows)
+    bar_width  = 30
 
     if args.verbose:
         print(f"  {'VERDICT':<12} {'SCENARIO':<10} {'ATTACK':<16} {'SCORE':>6}  RULES")
         print(f"  {'-------':<12} {'--------':<10} {'------':<16} {'-----':>6}  -----")
 
-    for row in rows:
+    for i, row in enumerate(rows, 1):
         payload     = (row.get("payload") or "").strip()
         scenario    = row.get("scenario", "unknown")
         attack_name = row.get("attack_name", "unknown")
@@ -165,9 +167,17 @@ def main() -> None:
             rules_str = ",".join(rules) if rules else "-"
             print(f"  {verdict:<12} {scenario:<10} {attack_name:<16} {score:>6.3f}  {rules_str}")
 
+        if not args.verbose:
+            done = int(i / total_rows * bar_width)
+            bar  = "█" * done + "░" * (bar_width - done)
+            pct  = i / total_rows * 100
+            print(f"\r  [{bar}] {pct:5.1f}%  {i}/{total_rows}  detected: {detected}", end="", flush=True)
+
     total    = detected + missed
     det_rate = detected / total if total else 0.0
 
+    if not args.verbose:
+        print()  # end the progress bar line
     print()
     print(sep)
     print("  AgentForensics - ARPIbench Results")

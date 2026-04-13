@@ -1,0 +1,23 @@
+{
+  "runs_per_stage": 100,
+  "sample_count": 10,
+  "stages": {
+    "stage1_heuristics": {
+      "mean_ms": 0.031,
+      "stdev_ms": 0.004
+    },
+    "stage3_instruction_boundary": {
+      "mean_ms": 0.031,
+      "stdev_ms": 0.003
+    },
+    "stage2_ml_classifier": {
+      "mean_ms": 42.301,
+      "stdev_ms": 4.233
+    },
+    "stage4_semantic_drift": {
+      "mean_ms": 76.902,
+      "stdev_ms": 11.879
+    }
+  },
+  "ml_available": true
+}
