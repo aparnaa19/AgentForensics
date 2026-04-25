@@ -1,3 +1,5 @@
+<meta name="google-site-verification" content="gmQrTUrnlvo9f1rSMR9Hyeqt_fuBNX224kG74q9edCE" />
+
 # AgentForensics
 
 **Real-time prompt injection detection and forensics for LLM agents.**
