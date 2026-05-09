@@ -101,7 +101,7 @@ flowchart TD
 ### One-command install (recommended)
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/agentforensics
+git clone https://github.com/aparnaa19/agentforensics
 cd agentforensics
 python install.py
 ```
